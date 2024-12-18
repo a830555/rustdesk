@@ -164,6 +164,11 @@ void showServerSettingsWithValue(
   final relayCtrl = TextEditingController(text: serverConfig.relayServer);
   final apiCtrl = TextEditingController(text: serverConfig.apiServer);
   final keyCtrl = TextEditingController(text: serverConfig.key);
+  // show context
+  final showIdCtrl = TextEditingController(text: '');
+  final showRelayCtrl = TextEditingController(text: '');
+  final showApiCtrl = TextEditingController(text: '');
+  final showKeyCtrl = TextEditingController(text: '');
 
   RxString idServerMsg = ''.obs;
   RxString relayServerMsg = ''.obs;
@@ -245,17 +250,17 @@ void showServerSettingsWithValue(
           child: Obx(() => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildField(translate('ID Server'), idCtrl, idServerMsg.value,
+                  buildField(translate('ID Server'), showIdCtrl, idServerMsg.value,
                       autofocus: true),
                   SizedBox(height: 8),
                   if (!isIOS && !isWeb) ...[
-                    buildField(translate('Relay Server'), relayCtrl,
+                    buildField(translate('Relay Server'), showRelayCtrl,
                         relayServerMsg.value),
                     SizedBox(height: 8),
                   ],
                   buildField(
                     translate('API Server'),
-                    apiCtrl,
+                    showApiCtrl,
                     apiServerMsg.value,
                     validator: (v) {
                       if (v != null && v.isNotEmpty) {
@@ -268,7 +273,7 @@ void showServerSettingsWithValue(
                     },
                   ),
                   SizedBox(height: 8),
-                  buildField('Key', keyCtrl, ''),
+                  buildField('Key', showKeyCtrl, ''),
                   if (isInProgress)
                     Padding(
                       padding: EdgeInsets.only(top: 8),
