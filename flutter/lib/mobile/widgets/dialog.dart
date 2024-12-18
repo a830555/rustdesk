@@ -197,7 +197,7 @@ void showServerSettingsWithValue(
 
     Widget buildField(
         String label, TextEditingController controller, String errorMsg,
-        {String? Function(String?)? validator, bool autofocus = false}) {
+        {String? Function(String?)? validator, bool autofocus = false, bool obscureText = false}) {
       if (isDesktop || isWeb) {
         return Row(
           children: [
@@ -216,6 +216,7 @@ void showServerSettingsWithValue(
                 ),
                 validator: validator,
                 autofocus: autofocus,
+                obscureText: obscureText,
               ),
             ),
           ],
