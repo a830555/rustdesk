@@ -164,11 +164,6 @@ void showServerSettingsWithValue(
   final relayCtrl = TextEditingController(text: serverConfig.relayServer);
   final apiCtrl = TextEditingController(text: serverConfig.apiServer);
   final keyCtrl = TextEditingController(text: serverConfig.key);
-  // show context
-  final showIdCtrl = TextEditingController(text: '');
-  final showRelayCtrl = TextEditingController(text: '');
-  final showApiCtrl = TextEditingController(text: '');
-  final showKeyCtrl = TextEditingController(text: '');
 
   RxString idServerMsg = ''.obs;
   RxString relayServerMsg = ''.obs;
@@ -250,18 +245,19 @@ void showServerSettingsWithValue(
           child: Obx(() => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  buildField(translate('ID Server'), showIdCtrl, idServerMsg.value,
-                      autofocus: true),
+                  buildField(translate('ID Server'), idCtrl, idServerMsg.value,
+                      autofocus: true, obscureText: true),
                   SizedBox(height: 8),
                   if (!isIOS && !isWeb) ...[
-                    buildField(translate('Relay Server'), showRelayCtrl,
-                        relayServerMsg.value),
+                    buildField(translate('Relay Server'), relayCtrl,
+                        relayServerMsg.value, obscureText: true),
                     SizedBox(height: 8),
                   ],
                   buildField(
                     translate('API Server'),
-                    showApiCtrl,
+                    apiCtrl,
                     apiServerMsg.value,
+                    obscureText: true,
                     validator: (v) {
                       if (v != null && v.isNotEmpty) {
                         if (!(v.startsWith('http://') ||
@@ -273,7 +269,7 @@ void showServerSettingsWithValue(
                     },
                   ),
                   SizedBox(height: 8),
-                  buildField('Key', showKeyCtrl, ''),
+                  buildField('Key', keyCtrl, '', obscureText: true),
                   if (isInProgress)
                     Padding(
                       padding: EdgeInsets.only(top: 8),
